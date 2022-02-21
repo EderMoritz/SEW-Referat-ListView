@@ -16,7 +16,9 @@ ifdef::backend-html5[]
 
 == Was ist eine ListView?
 
-Die ListView macht es möglich, dass ein User eine oder mehrere Optionen aus einer vordefinierten Liste auswählen kann.
+Die ListView macht es möglich, dass ein User eine oder mehrere Einträge aus einer vordefinierten Liste auswählen kann.
+
+Beispiel:
 
 image::listview.png[]
 
@@ -37,10 +39,16 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("ListView Example 1");
 
+        // ListView anlegen
         ListView listView = new ListView();
 
+        // oder auch mit Generics
+        // ListView<Button> -- Einträge sind Buttons
+
+        // Multiple - mehrfache Auswahl
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+        // Elemente hinzufügen
         listView.getItems().add("Item 0");
         listView.getItems().add("Item 1");
         listView.getItems().add("Item 2");
@@ -49,10 +57,12 @@ public class HelloApplication extends Application {
         Button button = new Button("Read Selected Value");
 
         button.setOnAction(event -> {
-            ObservableList selectedIndices = listView.getSelectionModel().getSelectedIndices();
+            // der Index von den ausgewählten Items
+            ObservableList<Integer> selectedIndices = listView.getSelectionModel().getSelectedIndices();
 
-            for(Object o : selectedIndices){
-                System.out.println("Auswahl = " + o);
+            // foreach-Schleife für die Indexe
+            for(Integer i : selectedIndices){
+                System.out.println("Auswahl = " + i);
             }
         });
 
